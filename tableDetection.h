@@ -36,7 +36,7 @@ vector<ImageSegment> detectTable(Image &img)
     int H = isauvola(img); //binarizes the image 
                            //and returns estimated character height
 
-    cout << "estimated character height: " << H << "\n";
+    // cout << "estimated character height: " << H << "\n";
     
     Image rlsaImg = img.getCopy(), hrlsaImg = img.getCopy();
 
@@ -57,10 +57,10 @@ vector<ImageSegment> detectTable(Image &img)
         makeSets(segments[i]);
         trimBoxesInSet(segments[i]);
 
-        cout<<"\nSegment "<<i+1<<" ";
-        segments[i].outer.printBoundingBoxCoords();
+        // cout<<"\nSegment "<<i+1<<" ";
+        // segments[i].outer.printBoundingBoxCoords();
 
-        cout << "segment " << i+1 << " : " << " rows: " << segments[i].rowSets.size() << " cols: " << segments[i].colSets.size() << "\n";
+        // cout << "segment " << i+1 << " : " << " rows: " << segments[i].rowSets.size() << " cols: " << segments[i].colSets.size() << "\n";
 
         calcCenterPoints(segments[i]);
 
@@ -140,7 +140,7 @@ bool isTable(ImageSegment &segment, Image &img)
     float score = (float)(sum)/maxPossibleSum;
     //float score = (float)(segment.points.size())/(segment.rowSets.size()*segment.colSets.size());
 
-    cout << "score = " << score;
+    // cout << "score = " << score;
 
     for(int ver = segment.outer.miny; ver<=segment.outer.maxy;ver++){
         for(int hor=segment.outer.minx; hor<=segment.outer.maxx;hor++){
@@ -153,13 +153,13 @@ bool isTable(ImageSegment &segment, Image &img)
     
     totSize =  (segment.outer.maxy-segment.outer.miny)* (segment.outer.maxx-segment.outer.minx);
     float densityFactor =  float(densityCounter)/totSize;
-    cout <<"  Total Size= "<<totSize <<" #Active pixels= "<<densityCounter<< "   density = " <<densityFactor<<" ---- ";
+    // cout <<"  Total Size= "<<totSize <<" #Active pixels= "<<densityCounter<< "   density = " <<densityFactor<<" ---- ";
 
     if(score < 0.5 || (score>0.5 and densityFactor>0.1)){
-        cout<<"Not a Table"<<endl;
+        // cout<<"Not a Table"<<endl;
         return false;
     }
-    cout<<"This is a Table"<<endl;
+    // cout<<"This is a Table"<<endl;
     return true;
 }
 
@@ -409,13 +409,13 @@ vector<ImageSegment> combineBoxes(vector<boundingBox> &outerBBoxes, vector<bound
 
 void saveIntermediateImages(Image& isauvolaImg, Image &rlsaImg, Image &hrlsaImg, vector<boundingBox>& outerBBoxes, vector<boundingBox>& innerBBoxes, vector<ImageSegment>& segments, int H)
 {
-    write_pbm(image_filename+"-isauvola.pbm", isauvolaImg);
-    write_pbm(image_filename+"-rlsa.pbm", rlsaImg);
-    write_pbm(image_filename+"-hrlsa.pbm", hrlsaImg);
+    // write_pbm(image_filename+"-isauvola.pbm", isauvolaImg);
+    // write_pbm(image_filename+"-rlsa.pbm", rlsaImg);
+    // write_pbm(image_filename+"-hrlsa.pbm", hrlsaImg);
 
     Image outerbbimg(isauvolaImg.width, isauvolaImg.height, 255);
     boundingBox::drawBoundingBoxes(outerbbimg, outerBBoxes);
-    write_pbm(image_filename+"-outer-boxes.pbm", outerbbimg);
+    // write_pbm(image_filename+"-outer-boxes.pbm", outerbbimg);
 
     // for(int i=0; i<segments.size();i++){
     //     cout<<"Segment "<<i+1<<" ";
@@ -424,7 +424,7 @@ void saveIntermediateImages(Image& isauvolaImg, Image &rlsaImg, Image &hrlsaImg,
 
     Image innerbbimg(isauvolaImg.width, isauvolaImg.height, 255);
     boundingBox::drawBoundingBoxes(innerbbimg, innerBBoxes);
-    write_pbm(image_filename+"-inner-boxes.pbm", innerbbimg);
+    // write_pbm(image_filename+"-inner-boxes.pbm", innerbbimg);
 
     Image rowColGroupImg(isauvolaImg.width, isauvolaImg.height, 255);
     Image pointsImg(isauvolaImg.width, isauvolaImg.height, 255);
@@ -440,8 +440,8 @@ void saveIntermediateImages(Image& isauvolaImg, Image &rlsaImg, Image &hrlsaImg,
         for(int j=0;j<segments[i].points.size();j++)
             drawPoint(pointsImg, segments[i].points[j], H/3);
     }
-    write_pbm(image_filename+"-row-col-groups.pbm", rowColGroupImg);    
-    write_pbm(image_filename+"-lattice.pbm", pointsImg);
+    // write_pbm(image_filename+"-row-col-groups.pbm", rowColGroupImg);    
+    // write_pbm(image_filename+"-lattice.pbm", pointsImg);
 
 }
 

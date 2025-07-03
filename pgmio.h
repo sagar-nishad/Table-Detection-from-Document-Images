@@ -18,6 +18,7 @@ Image read_pgm(string filename)
     string buffer;
 
     getline(fin, buffer);
+    // cout << buffer <<endl; 
     if(buffer != "P5")
     {
         throw "Error! Unknown file format! A PGM P5 file is required";
