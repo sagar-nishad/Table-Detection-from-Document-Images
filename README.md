@@ -9,3 +9,6 @@ https://drive.google.com/drive/folders/1If4jIr4n1cag-lEvOuOTuaKPjVwiognt
 # Our Project Report
 
 https://drive.google.com/file/d/1BRRuAYe-8OJ-Qp4n-9LHM0T0_KyNUqKW
+
+# Testing 
+Use "testing.ipynb" to test on your custom files 
